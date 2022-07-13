@@ -85,10 +85,6 @@ async fn register(data: JsonUpcase<RegisterData>, conn: DbConn) -> EmptyResult {
     let data: RegisterData = data.into_inner().data;
     let email = data.Email.to_lowercase();
 
-    if !email.contains("@bacancy.com") {
-        err!("Only Bacancy employees are allowed to register.");
-    }
-
     // Check if the length of the username exceeds 50 characters (Same is Upstream Bitwarden)
     // This also prevents issues with very long usernames causing to large JWT's. See #2419
     if let Some(ref name) = data.Name {
